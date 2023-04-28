@@ -54,7 +54,7 @@ const CheckoutScreen = () => {
         <Text style={styles.productPrice}>${item.price}</Text>
         <TrashIcon
           onPress={() => handleRemoveProduct(item.id)}
-          size={24}
+          size={28}
           color={themeColors.bgDark}
         />
       </View>
@@ -64,49 +64,75 @@ const CheckoutScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Checkout</Text>
-      <View
-        style={{
-          height: height,
-          justifyContent: 'space-around',
-        }}
-      >
-        <FlatList
-          data={order.products}
-          renderItem={renderProduct}
-          keyExtractor={(item, index) => index.toString()}
-          style={{ marginTop: 20 }}
-        />
-
-        <View style={styles.total}>
-          <Text style={styles.totalText}>Total:</Text>
-          <Text style={styles.totalAmount}>${getTotal()}</Text>
+      {order.products.length === 0 ? (
+        <View style={styles.boxNoProducts}>
+          <Image
+            style={{ width: 200, height: 200, borderRadius: 100 }}
+            source={require('../../../assets/nathan-dumlao-ikU3J1nr52w-unsplash.jpg')}
+          />
+          <Text style={styles.noProducts}>No hay productos en el carrito</Text>
         </View>
-      </View>
+      ) : (
+        <View
+          style={{
+            height: height - 240,
+            justifyContent: 'space-around',
+          }}
+        >
+          <FlatList
+            data={order.products}
+            renderItem={renderProduct}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            style={{ marginTop: 20 }}
+            ItemSeparatorComponent={() => <View style={styles.divider} />}
+          />
+          <View style={styles.total}>
+            <Text style={styles.totalText}>Total:</Text>
+            <Text style={styles.totalAmount}>${getTotal()}</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
     marginTop: 40,
+  },
+  boxNoProducts: {
+    height: '70%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 30,
+  },
+  noProducts: {
+    fontSize: 25,
+    color: themeColors.bgDark,
+    fontWeight: '500',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'gray',
+    marginVertical: 10,
   },
   title: {
     fontSize: 26,
     fontWeight: '800',
     marginBottom: 20,
     textAlign: 'center',
+    color: themeColors.bgDark,
   },
   product: {
     height: 100,
-    marginHorizontal: '1%',
+    marginHorizontal: '2%',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     paddingVertical: 10,
-    borderBottomWidth: 1.5,
-    borderBottomColor: '#ccc',
+    marginVertical: 10,
   },
   productImage: {
     width: 90,
@@ -114,7 +140,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   productDetails: {
+    width: '35%',
     gap: 10,
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   productName: {
@@ -138,11 +166,11 @@ const styles = StyleSheet.create({
   },
   total: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 20,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
-    paddingTop: 10,
+    paddingTop: 20,
   },
   totalText: {
     fontSize: 20,
