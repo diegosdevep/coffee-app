@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
+import { themeColors } from '../../theme/theme';
 
 const HeaderProduct = ({ name, price }) => {
   return (
@@ -12,11 +13,15 @@ const HeaderProduct = ({ name, price }) => {
         marginTop: 30,
       }}
     >
-      <Text style={{ color: '#864E19', fontSize: 30, fontWeight: '700' }}>
+      <Text
+        style={{ color: themeColors.bgDark, fontSize: 30, fontWeight: '700' }}
+      >
         {name}
       </Text>
 
-      <Text style={{ color: '#864E19', fontSize: 20, fontWeight: '600' }}>
+      <Text
+        style={{ color: themeColors.bgDark, fontSize: 20, fontWeight: '600' }}
+      >
         $ {price}
       </Text>
     </View>

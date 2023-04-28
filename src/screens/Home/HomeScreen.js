@@ -15,8 +15,13 @@ import { styles } from './home.styles';
 import CoffeeCard from '../../components/CoffeeCard.js/CoffeeCard';
 import { coffeeItems } from '../../constants/categories';
 import Carousel from 'react-native-snap-carousel';
+import { themeColors } from '../../theme/theme';
+import { useSelector } from 'react-redux';
 
 const HomeScreen = () => {
+  const user = useSelector((state) => state.order);
+  // console.log(user);
+
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle='light-content' />
@@ -32,10 +37,10 @@ const HomeScreen = () => {
             source={require('../../../assets/images/avatar.png')}
           />
           <View style={styles.address}>
-            <MapPinIcon size={30} color='#864E19' />
+            <MapPinIcon size={30} color={themeColors.bgDark} />
             <Text style={styles.text}>Santa Rosa, LP</Text>
           </View>
-          <BellIcon size={32} color='#864E19' />
+          <BellIcon size={32} color={themeColors.bgDark} />
         </View>
 
         {/* Search Bar */}

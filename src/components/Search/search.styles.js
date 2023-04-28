@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { themeColors } from '../../theme/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   btn: {
     borderRadius: 25,
-    backgroundColor: '#864E19',
+    backgroundColor: themeColors.bgDark,
     padding: 8,
   },
 });

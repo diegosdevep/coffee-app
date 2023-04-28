@@ -21,6 +21,8 @@ LogBox.ignoreLogs([
 ]);
 
 import { useMemo } from 'react';
+import FavoriteScreen from '../screens/Favorite/FavoriteScreen';
+import CheckoutScreen from '../screens/Checkout/CheckoutScreen';
 
 const HomeTabs = () => {
   const menuIcons = useMemo(() => {
@@ -31,19 +33,19 @@ const HomeTabs = () => {
         icon = focused ? (
           <HomeSolid size='30' color={'white'} />
         ) : (
-          <HomeOutline size='30' strokeWidth={2} color={themeColors.bgLight} />
+          <HomeOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
         );
       } else if (route.name === 'favorite') {
         icon = focused ? (
           <HeartSolid size='30' color={'white'} />
         ) : (
-          <HeartOutline size='30' strokeWidth={2} color={themeColors.bgLight} />
+          <HeartOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
         );
-      } else if (route.name === 'cart') {
+      } else if (route.name === 'checkout') {
         icon = focused ? (
           <BagSolid size='30' color={'white'} />
         ) : (
-          <BagOutline size='30' strokeWidth={2} color={themeColors.bgLight} />
+          <BagOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
         );
       }
 
@@ -62,7 +64,7 @@ const HomeTabs = () => {
           marginBottom: 20,
           borderRadius: 50,
           marginHorizontal: 20,
-          backgroundColor: '#864E19',
+          backgroundColor: themeColors.bgDark,
         },
         tabBarItemStyle: {
           marginTop: 30,
@@ -70,8 +72,8 @@ const HomeTabs = () => {
       })}
     >
       <Tab.Screen name='home' component={HomeScreen} />
-      <Tab.Screen name='favorite' component={HomeScreen} />
-      <Tab.Screen name='cart' component={HomeScreen} />
+      <Tab.Screen name='favorite' component={FavoriteScreen} />
+      <Tab.Screen name='checkout' component={CheckoutScreen} />
     </Tab.Navigator>
   );
 };

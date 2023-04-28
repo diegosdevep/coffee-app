@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { styles } from './size.styles';
 
-const Size = () => {
-  const [selected, setSelected] = useState('Medium');
-
+const Size = ({ selected, setSelected }) => {
   const handleSizeSelect = (size) => {
     setSelected(size);
   };
@@ -18,20 +16,20 @@ const Size = () => {
           activeOpacity={0.7}
           style={[
             styles.btn,
-            selected === 'Small' ? styles.selected : styles.unselected,
+            selected === 'Chico' ? styles.selected : styles.unselected,
           ]}
-          onPress={() => handleSizeSelect('Small')}
+          onPress={() => handleSizeSelect('Chico')}
         >
-          <Text style={styles.text}>Pequeño</Text>
+          <Text style={styles.text}>Chico</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.7}
           style={[
             styles.btn,
-            selected === 'Medium' ? styles.selected : styles.unselected,
+            selected === 'Mediano' ? styles.selected : styles.unselected,
           ]}
-          onPress={() => handleSizeSelect('Medium')}
+          onPress={() => handleSizeSelect('Mediano')}
         >
           <Text style={styles.text}>Mediano</Text>
         </TouchableOpacity>
@@ -40,9 +38,9 @@ const Size = () => {
           activeOpacity={0.7}
           style={[
             styles.btn,
-            selected === 'Large' ? styles.selected : styles.unselected,
+            selected === 'Grande' ? styles.selected : styles.unselected,
           ]}
-          onPress={() => handleSizeSelect('Large')}
+          onPress={() => handleSizeSelect('Grande')}
         >
           <Text style={styles.text}>Grande</Text>
         </TouchableOpacity>

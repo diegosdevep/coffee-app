@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, FlatList } from 'react-native';
 import { categories } from '../../constants/categories';
+import { themeColors } from '../../theme/theme';
 import { styles } from './categories.styles';
 
 const Categories = () => {
@@ -19,7 +20,7 @@ const Categories = () => {
           let activeTextClass = isActive
             ? { color: 'white' }
             : { color: 'gray' };
-          let bgColor = isActive ? '#864E19' : 'rgba(0,0,0,0.07)';
+          let bgColor = isActive ? themeColors.bgDark : 'rgba(0,0,0,0.07)';
           return (
             <TouchableOpacity
               onPress={() => setActiveCategory(item.id)}

@@ -1,11 +1,13 @@
 import { Text, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { themeColors } from '../../theme/theme';
 
-const BtnBuy = () => {
+const BtnBuy = ({ onPress }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={{
-        backgroundColor: '#864E19',
+        backgroundColor: themeColors.bgDark,
         padding: 16,
         borderRadius: 999,
         flex: 1,

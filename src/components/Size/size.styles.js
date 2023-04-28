@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { themeColors } from '../../theme/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: '700',
     fontSize: 20,
-    color: '#864E19',
+    color: themeColors.bgDark,
   },
   btn: {
     paddingHorizontal: 30,
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   selected: {
-    backgroundColor: '#864E19',
+    backgroundColor: themeColors.bgDark,
   },
   unselected: {
     backgroundColor: 'gray',

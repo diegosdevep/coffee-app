@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     opacity: 0.6,
   },
   starsBox: {
-    backgroundColor: '#864E19',
+    backgroundColor: themeColors.bgDark,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -93,6 +93,6 @@ export const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#864E19',
+    borderColor: themeColors.bgDark,
   },
 });

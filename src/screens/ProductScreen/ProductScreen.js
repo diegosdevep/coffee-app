@@ -20,10 +20,16 @@ import Description from '../../components/Description/Description';
 import Size from '../../components/Size/Size';
 import HeaderProduct from '../../components/HeaderProduct/HeaderProduct';
 import { useState } from 'react';
+import { themeColors } from '../../theme/theme';
+import { addProduct } from '../../redux/orderSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductScreen = (props) => {
+  const [selected, setSelected] = useState('Mediano');
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
   const item = props.route.params;
 
   return (
@@ -56,13 +62,19 @@ const ProductScreen = (props) => {
         </View>
 
         <HeaderProduct name={item.name} price={item.price} />
-        <Size />
+        <Size selected={selected} setSelected={setSelected} />
         <Description description={item.desc} />
 
         <View style={styles.volumeContainer}>
           <View style={styles.volumeBox}>
             <Text style={styles.volume}>Volumen</Text>
-            <Text style={{ fontSize: 16, fontWeight: '600', color: '#864E19' }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '600',
+                color: themeColors.bgDark,
+              }}
+            >
               {item.volume}
             </Text>
           </View>
@@ -71,10 +83,24 @@ const ProductScreen = (props) => {
 
         <View style={styles.contentButtons}>
           <TouchableOpacity style={styles.iconBag}>
-            <ShoppingBagIcon size='30' color='#864E19' />
+            <ShoppingBagIcon size='30' color={themeColors.bgDark} />
           </TouchableOpacity>
 
-          <BtnBuy />
+          <BtnBuy
+            onPress={() => {
+              dispatch(
+                addProduct({
+                  id: item.id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: quantity,
+                  size: selected,
+                  image: item.image,
+                })
+              );
+              navigation.navigate('checkout');
+            }}
+          />
         </View>
       </SafeAreaView>
     </ScrollView>
