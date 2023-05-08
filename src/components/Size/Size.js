@@ -1,10 +1,23 @@
-import { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { styles } from './size.styles';
 
-const Size = ({ selected, setSelected }) => {
+const Size = ({ selected, setSelected, setVolumen }) => {
+  const getVolumen = (selected) => {
+    switch (selected) {
+      case 'Chico':
+        return '80ml';
+      case 'Mediano':
+        return '100ml';
+      case 'Grande':
+        return '120ml';
+      default:
+        return '';
+    }
+  };
+
   const handleSizeSelect = (size) => {
     setSelected(size);
+    setVolumen(getVolumen(size));
   };
 
   return (

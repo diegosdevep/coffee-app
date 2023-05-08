@@ -26,11 +26,25 @@ import { useDispatch } from 'react-redux';
 
 const ProductScreen = (props) => {
   const [selected, setSelected] = useState('Mediano');
+  const [volumen, setVolumen] = useState('100ml');
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const item = props.route.params;
+  item.price = parseFloat(item.price);
+
+  let price = 0;
+  if (selected === 'Chico') {
+    price = (item.price * 85) / 100;
+  }
+  if (selected === 'Mediano') {
+    price = item.price;
+  }
+  if (selected === 'Grande') {
+    price = item.price * 1.3;
+  }
+  price = price.toFixed(2);
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -44,12 +58,6 @@ const ProductScreen = (props) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <ArrowLeftCircleIcon size={50} strokeWidth={1.2} color='white' />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconHear}
-            onPress={() => navigation.goBack()}
-          >
-            <HeartIcon size={28} strokeWidth={1.2} color='white' />
-          </TouchableOpacity>
         </View>
 
         <View style={styles.imgItem}>
@@ -61,8 +69,13 @@ const ProductScreen = (props) => {
           <Text style={styles.stars}>{item.stars}</Text>
         </View>
 
-        <HeaderProduct name={item.name} price={item.price} />
-        <Size selected={selected} setSelected={setSelected} />
+        <HeaderProduct name={item.name} price={price.toString()} />
+        <Size
+          selected={selected}
+          setSelected={setSelected}
+          setVolumen={setVolumen}
+          item={item}
+        />
         <Description description={item.desc} />
 
         <View style={styles.volumeContainer}>
@@ -75,24 +88,21 @@ const ProductScreen = (props) => {
                 color: themeColors.bgDark,
               }}
             >
-              {item.volume}
+              {volumen}
             </Text>
           </View>
           <Counter quantity={quantity} setQuantity={setQuantity} />
         </View>
 
         <View style={styles.contentButtons}>
-          <TouchableOpacity style={styles.iconBag}>
-            <ShoppingBagIcon size='30' color={themeColors.bgDark} />
-          </TouchableOpacity>
-
           <BtnBuy
+            title='Agregar al carrito'
             onPress={() => {
               dispatch(
                 addProduct({
                   id: item.id,
                   name: item.name,
-                  price: item.price,
+                  price: price.toString(),
                   quantity: quantity,
                   size: selected,
                   image: item.image,

@@ -1,30 +1,35 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { themeColors } from '../../theme/theme';
+import { ShoppingBagIcon } from 'react-native-heroicons/outline';
 
-const BtnBuy = ({ onPress }) => {
+const BtnBuy = ({ onPress, title }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
+        width: '100%',
         backgroundColor: themeColors.bgDark,
-        padding: 16,
+        padding: 15,
         borderRadius: 999,
-        flex: 1,
-        marginLeft: 16,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
       }}
     >
+      <View />
       <Text
         style={{
           textAlign: 'center',
           color: '#FFFFFF',
           fontSize: 18,
           fontWeight: '600',
+          marginLeft: 50,
         }}
       >
-        Pagar
+        {title}
       </Text>
+      <ShoppingBagIcon size='25' color='#FFF' style={{ marginRight: 10 }} />
     </TouchableOpacity>
   );
 };

@@ -16,15 +16,11 @@ import CoffeeCard from '../../components/CoffeeCard.js/CoffeeCard';
 import { coffeeItems } from '../../constants/categories';
 import Carousel from 'react-native-snap-carousel';
 import { themeColors } from '../../theme/theme';
-import { useSelector } from 'react-redux';
 
 const HomeScreen = () => {
-  const user = useSelector((state) => state.order);
-  // console.log(user);
-
   return (
     <ScrollView style={styles.container}>
-      <StatusBar barStyle='light-content' />
+      <StatusBar barStyle='dark-content' />
       <Image
         source={require('../../../assets/images/beansBackground1.png')}
         style={styles.imgBG}

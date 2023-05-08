@@ -6,19 +6,23 @@ import {
   FlatList,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { TrashIcon } from 'react-native-heroicons/solid';
 import { themeColors } from '../../theme/theme';
 import { removeProduct } from '../../redux/orderSlice';
+import { ArrowLeftCircleIcon } from 'react-native-heroicons/outline';
+import { useNavigation } from '@react-navigation/native';
+import BtnBuy from '../../components/Button/BtnBuy';
+import { Button } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const CheckoutScreen = () => {
   const order = useSelector((state) => state.order);
   const dispatch = useDispatch();
-
-  console.log(order.products.map((e) => e.quantity));
+  const navigation = useNavigation();
 
   const handleRemoveProduct = (productId) => {
     dispatch(removeProduct(productId));
@@ -62,38 +66,61 @@ const CheckoutScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Checkout</Text>
-      {order.products.length === 0 ? (
-        <View style={styles.boxNoProducts}>
-          <Image
-            style={{ width: 200, height: 200, borderRadius: 100 }}
-            source={require('../../../assets/nathan-dumlao-ikU3J1nr52w-unsplash.jpg')}
-          />
-          <Text style={styles.noProducts}>No hay productos en el carrito</Text>
-        </View>
-      ) : (
+    <>
+      <View style={styles.container}>
         <View
           style={{
-            height: height - 240,
-            justifyContent: 'space-around',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
-          <FlatList
-            data={order.products}
-            renderItem={renderProduct}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ marginTop: 20 }}
-            ItemSeparatorComponent={() => <View style={styles.divider} />}
-          />
-          <View style={styles.total}>
-            <Text style={styles.totalText}>Total:</Text>
-            <Text style={styles.totalAmount}>${getTotal()}</Text>
-          </View>
+          <TouchableOpacity
+            style={{ paddingLeft: 10 }}
+            onPress={() => navigation.goBack()}
+          >
+            <ArrowLeftCircleIcon
+              size={50}
+              strokeWidth={1.2}
+              color={themeColors.bgDark}
+            />
+          </TouchableOpacity>
+          <Text style={styles.title}>Checkout</Text>
+          <View />
         </View>
-      )}
-    </View>
+        {order.products.length === 0 ? (
+          <View style={styles.boxNoProducts}>
+            <Image
+              style={{ width: 200, height: 200, borderRadius: 100 }}
+              source={require('../../../assets/nathan-dumlao-ikU3J1nr52w-unsplash.jpg')}
+            />
+            <Text style={styles.noProducts}>
+              No hay productos en el carrito
+            </Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              height: height - 240,
+              justifyContent: 'space-around',
+            }}
+          >
+            <FlatList
+              data={order.products}
+              renderItem={renderProduct}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              style={{ marginTop: 20 }}
+              ItemSeparatorComponent={() => <View style={styles.divider} />}
+            />
+            <View style={styles.total}>
+              <Text style={styles.totalText}>Total:</Text>
+              <Text style={styles.totalAmount}>${getTotal()}</Text>
+            </View>
+          </View>
+        )}
+      </View>
+    </>
   );
 };
 
@@ -103,7 +130,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   boxNoProducts: {
-    height: '70%',
+    height: '90%',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 30,
@@ -119,10 +146,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   title: {
+    width: 190,
     fontSize: 26,
     fontWeight: '800',
-    marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'left',
     color: themeColors.bgDark,
   },
   product: {

@@ -1,11 +1,5 @@
 import { styles } from './coffee.styles';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import { StarIcon } from 'react-native-heroicons/solid';
 import { PlusIcon } from 'react-native-heroicons/outline';
@@ -39,7 +33,7 @@ const CoffeeCard = ({ item }) => {
 
           <View style={styles.volumeBox}>
             <Text style={styles.volume}>Volume</Text>
-            <Text style={styles.volumeItem}> {item.volume}</Text>
+            <Text style={styles.volumeItem}> 100ml</Text>
           </View>
 
           <View style={styles.priceBox}>

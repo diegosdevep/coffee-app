@@ -84,7 +84,8 @@ export const styles = StyleSheet.create({
   },
   contentButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 4,
     marginHorizontal: '5%',
     marginTop: 20,

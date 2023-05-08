@@ -2,13 +2,13 @@ import { LogBox, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   HomeIcon as HomeOutline,
-  HeartIcon as HeartOutline,
   ShoppingBagIcon as BagOutline,
+  TicketIcon as TicketOutline,
 } from 'react-native-heroicons/outline';
 import {
   HomeIcon as HomeSolid,
-  HeartIcon as HeartSolid,
   ShoppingBagIcon as BagSolid,
+  TicketIcon as TicketSolid,
 } from 'react-native-heroicons/solid';
 
 import HomeScreen from '../screens/Home/HomeScreen';
@@ -37,9 +37,9 @@ const HomeTabs = () => {
         );
       } else if (route.name === 'favorite') {
         icon = focused ? (
-          <HeartSolid size='30' color={'white'} />
+          <TicketSolid size='30' color={'white'} />
         ) : (
-          <HeartOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
+          <TicketOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
         );
       } else if (route.name === 'checkout') {
         icon = focused ? (
@@ -49,7 +49,6 @@ const HomeTabs = () => {
         );
       }
 
-      let buttonClass = focused ? 'bg-white' : '';
       return <View>{icon}</View>;
     };
   }, []);
@@ -59,7 +58,7 @@ const HomeTabs = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarIcon: ({ focused, color, size }) => menuIcons(route, focused),
+        tabBarIcon: ({ focused }) => menuIcons(route, focused),
         tabBarStyle: {
           marginBottom: 20,
           borderRadius: 50,
@@ -73,7 +72,15 @@ const HomeTabs = () => {
     >
       <Tab.Screen name='home' component={HomeScreen} />
       <Tab.Screen name='favorite' component={FavoriteScreen} />
-      <Tab.Screen name='checkout' component={CheckoutScreen} />
+      <Tab.Screen
+        name='checkout'
+        component={CheckoutScreen}
+        options={() => ({
+          tabBarStyle: {
+            display: 'none',
+          },
+        })}
+      />
     </Tab.Navigator>
   );
 };
