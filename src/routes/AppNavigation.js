@@ -21,7 +21,7 @@ LogBox.ignoreLogs([
 ]);
 
 import { useMemo } from 'react';
-import FavoriteScreen from '../screens/Favorite/FavoriteScreen';
+import TicketScreen from '../screens/Ticket/TicketScreen';
 import CheckoutScreen from '../screens/Checkout/CheckoutScreen';
 
 const HomeTabs = () => {
@@ -35,7 +35,7 @@ const HomeTabs = () => {
         ) : (
           <HomeOutline size='30' strokeWidth={2} color={'#E6E6E691'} />
         );
-      } else if (route.name === 'favorite') {
+      } else if (route.name === 'ticket') {
         icon = focused ? (
           <TicketSolid size='30' color={'white'} />
         ) : (
@@ -71,7 +71,7 @@ const HomeTabs = () => {
       })}
     >
       <Tab.Screen name='home' component={HomeScreen} />
-      <Tab.Screen name='favorite' component={FavoriteScreen} />
+      <Tab.Screen name='ticket' component={TicketScreen} />
       <Tab.Screen
         name='checkout'
         component={CheckoutScreen}

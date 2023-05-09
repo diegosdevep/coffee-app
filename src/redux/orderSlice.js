@@ -34,10 +34,13 @@ const orderSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
+    setProducts(state, action) {
+      state.products = action.payload;
+    },
   },
 });
 
-export const { addProduct, removeProduct, clearOrder, setUser } =
+export const { addProduct, removeProduct, clearOrder, setUser, setProducts } =
   orderSlice.actions;
 
 export default orderSlice.reducer;

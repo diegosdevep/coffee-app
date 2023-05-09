@@ -1,28 +1,37 @@
-import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   Image,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { TrashIcon } from 'react-native-heroicons/solid';
 import { themeColors } from '../../theme/theme';
-import { removeProduct } from '../../redux/orderSlice';
+import { clearOrder, removeProduct } from '../../redux/orderSlice';
 import { ArrowLeftCircleIcon } from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from './checkout.styles';
 import BtnBuy from '../../components/Button/BtnBuy';
-import { Button } from 'react-native';
+import { useEffect, useState } from 'react';
+import Loading from '../../components/shared/loading/Loading';
+import { v4 as uuidv4 } from 'uuid';
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { db } from '../../firebase/firebase';
+import CartItem from '../../components/CartItem/CartItem';
 
 const { height } = Dimensions.get('window');
 
 const CheckoutScreen = () => {
   const order = useSelector((state) => state.order);
+  const [orders, setOrders] = useState(order);
+  const [qrUniqueId, setQrUniqueId] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const EXPIRE_HOURS = 4;
 
   const handleRemoveProduct = (productId) => {
     dispatch(removeProduct(productId));
@@ -36,45 +45,77 @@ const CheckoutScreen = () => {
     return total.toFixed(2);
   };
 
+  const handlePay = async () => {
+    setIsLoading(true);
+    dispatch(clearOrder());
+
+    const total = getTotal();
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Calcular la fecha de expiración del código QR
+    const expireDate = new Date();
+    expireDate.setHours(expireDate.getHours() + EXPIRE_HOURS);
+    const formattedDate = expireDate.toLocaleString('es-ES');
+
+    // Generar un ID único para el código QR
+    const uniqueId = uuidv4();
+
+    // Crear el contenido del código QR
+    const qrContent = `Valido hasta el ${formattedDate}, ID único: ${uniqueId}`;
+
+    try {
+      // Confirmar la orden y guardarla en la base de datos
+      await handleConfirmOrder(qrContent, total, expireDate, uniqueId);
+
+      // Guardar el ID único del código QR para mostrarlo en la pantalla de ticket
+      setQrUniqueId(uniqueId);
+
+      // Navegar a la pantalla de ticket con los datos necesarios
+      navigation.navigate('ticket', {
+        qrContent,
+        total,
+        order,
+        expireDate: expireDate.toISOString(),
+        qrUniqueId: uniqueId,
+      });
+
+      setIsLoading(false);
+    } catch (error) {
+      // Manejar errores adecuadamente
+      console.log('Error en handleConfirmOrder:', error);
+    }
+  };
+
+  const handleConfirmOrder = async (qrContent, total, expireDate, uniqueId) => {
+    const ordersCollectionRef = collection(db, 'orders');
+
+    // Guardar la orden en la base de datos
+    await addDoc(ordersCollectionRef, {
+      id: uuidv4(),
+      orders,
+      total,
+      qrContent,
+      qrUniqueId: uniqueId,
+      date: Timestamp.fromDate(new Date()),
+      expireDate: expireDate,
+    });
+  };
+
+  useEffect(() => {
+    setOrders(order);
+  }, [order]);
+
+  if (isLoading) return <Loading />;
+
   const renderProduct = ({ item }) => (
-    <View style={styles.product}>
-      <Image source={item.image} style={styles.productImage} />
-
-      <View style={styles.productDetails}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productSize}>{item.size}</Text>
-        <Text style={styles.productQuantity}>x{item.quantity}</Text>
-      </View>
-
-      <View
-        style={{
-          height: '100%',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: 20,
-        }}
-      >
-        <Text style={styles.productPrice}>${item.price}</Text>
-        <TrashIcon
-          onPress={() => handleRemoveProduct(item.id)}
-          size={28}
-          color={themeColors.bgDark}
-        />
-      </View>
-    </View>
+    <CartItem item={item} handleRemoveProduct={handleRemoveProduct} />
   );
 
   return (
     <>
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+        <View style={styles.content}>
           <TouchableOpacity
             style={{ paddingLeft: 10 }}
             onPress={() => navigation.goBack()}
@@ -101,7 +142,7 @@ const CheckoutScreen = () => {
         ) : (
           <View
             style={{
-              height: height - 240,
+              height: height - 160,
               justifyContent: 'space-around',
             }}
           >
@@ -117,96 +158,14 @@ const CheckoutScreen = () => {
               <Text style={styles.totalText}>Total:</Text>
               <Text style={styles.totalAmount}>${getTotal()}</Text>
             </View>
+            <View style={{ marginHorizontal: 20, marginTop: 25 }}>
+              <BtnBuy title='Pagar' showIcon={false} onPress={handlePay} />
+            </View>
           </View>
         )}
       </View>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    marginTop: 40,
-  },
-  boxNoProducts: {
-    height: '90%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 30,
-  },
-  noProducts: {
-    fontSize: 25,
-    color: themeColors.bgDark,
-    fontWeight: '500',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: 'gray',
-    marginVertical: 10,
-  },
-  title: {
-    width: 190,
-    fontSize: 26,
-    fontWeight: '800',
-    textAlign: 'left',
-    color: themeColors.bgDark,
-  },
-  product: {
-    height: 100,
-    marginHorizontal: '2%',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    marginVertical: 10,
-  },
-  productImage: {
-    width: 90,
-    height: 90,
-    marginRight: 10,
-  },
-  productDetails: {
-    width: '35%',
-    gap: 10,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-  productName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  productSize: {
-    fontSize: 16,
-    fontWeight: 600,
-    color: 'gray',
-  },
-  productQuantity: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'gray',
-    letterSpacing: 2,
-  },
-  productPrice: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  total: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    paddingTop: 20,
-  },
-  totalText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  totalAmount: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
 
 export default CheckoutScreen;

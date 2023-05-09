@@ -3,7 +3,7 @@ import React from 'react';
 import { themeColors } from '../../theme/theme';
 import { ShoppingBagIcon } from 'react-native-heroicons/outline';
 
-const BtnBuy = ({ onPress, title }) => {
+const BtnBuy = ({ onPress, title, showIcon = true }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -13,7 +13,7 @@ const BtnBuy = ({ onPress, title }) => {
         padding: 15,
         borderRadius: 999,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: showIcon ? 'space-between' : 'center',
         alignItems: 'center',
       }}
     >
@@ -24,12 +24,14 @@ const BtnBuy = ({ onPress, title }) => {
           color: '#FFFFFF',
           fontSize: 18,
           fontWeight: '600',
-          marginLeft: 50,
+          marginLeft: showIcon ? 50 : 0,
         }}
       >
         {title}
       </Text>
-      <ShoppingBagIcon size='25' color='#FFF' style={{ marginRight: 10 }} />
+      {showIcon && (
+        <ShoppingBagIcon size='25' color='#FFF' style={{ marginRight: 10 }} />
+      )}
     </TouchableOpacity>
   );
 };
