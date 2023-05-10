@@ -64,7 +64,7 @@ const HomeScreen = () => {
             loop={true}
             inactiveSlideScale={0.77} //opacity of inactive slides
             inactiveSlideOpacity={0.75} // size of inavtive slides
-            sliderWidth={400} // actual slide with
+            sliderWidth={440} // actual slide with
             itemWidth={260} // card with
             slideStyle={{ display: 'flex', alignItems: 'center' }}
           />

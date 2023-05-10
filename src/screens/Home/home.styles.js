@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     marginTop: 120,
-    fontWeight: '900',
+    fontWeight: '800',
     color: themeColors.bgDark,
     marginBottom: 30,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
