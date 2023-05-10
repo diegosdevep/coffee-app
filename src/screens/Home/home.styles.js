@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: -160,
     left: -80,
+    opacity: 0.5,
   },
   imgRight: {
     width: 250,
@@ -33,6 +34,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: -160,
     right: -80,
+    opacity: 0.5,
   },
   img: {
     width: 50,

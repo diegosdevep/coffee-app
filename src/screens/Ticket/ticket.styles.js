@@ -1,23 +1,14 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { themeColors } from '../../theme/theme';
-
-const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingVertical: 40,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  imgBG: {
-    width: width,
-    height: height,
-    position: 'absolute',
-    resizeMode: 'cover',
-    opacity: 0.03,
   },
   qrContainer: {
     marginVertical: 20,
@@ -58,8 +49,8 @@ export const styles = StyleSheet.create({
   boxItems: {
     width: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     gap: 20,
     marginTop: 20,
   },
