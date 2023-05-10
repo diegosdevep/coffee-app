@@ -55,16 +55,25 @@ const CheckoutScreen = () => {
 
     // Calcular la fecha de expiración del código QR
     const expireDate = new Date();
+
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+    };
+
     expireDate.setHours(expireDate.getHours() + EXPIRE_HOURS);
-    const formattedDate = expireDate.toLocaleString('es-ES');
+    const formattedDate = expireDate.toLocaleString('es-ES', options);
 
     // Generar un ID único para el código QR
     const uniqueId = uuidv4();
 
     // Crear el contenido del código QR
     const qrContent = `Valido hasta el ${formattedDate}`;
-    // const qrContent = `Valido hasta el ${formattedDate}, ID único: ${uniqueId}`;
-    // const qrContent = `https://www.google.com`;
 
     try {
       // Confirmar la orden y guardarla en la base de datos

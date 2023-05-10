@@ -20,7 +20,7 @@ import { themeColors } from '../../theme/theme';
 const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <StatusBar barStyle='light-content' />
+      <StatusBar barStyle='dark-content' />
       <Image
         source={require('../../../assets/images/beansBackground1.png')}
         style={styles.imgBG}
@@ -29,35 +29,12 @@ const HomeScreen = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <View>
           <Image
-            style={{
-              width: 250,
-              height: 250,
-              position: 'absolute',
-              top: -160,
-              left: -80,
-            }}
+            style={styles.imgLeft}
             source={require('../../../assets/images/coffee4.png')}
           />
-          <Text
-            style={{
-              fontSize: 50,
-              textAlign: 'center',
-              marginTop: 120,
-              fontWeight: '900',
-              color: themeColors.bgDark,
-              marginBottom: 30,
-            }}
-          >
-            Coffee Hub
-          </Text>
+          <Text style={styles.title}>Coffee Hub</Text>
           <Image
-            style={{
-              width: 250,
-              height: 250,
-              position: 'absolute',
-              top: -160,
-              right: -80,
-            }}
+            style={styles.imgRight}
             source={require('../../../assets/images/coffee2.png')}
           />
         </View>
@@ -74,10 +51,7 @@ const HomeScreen = () => {
           <BellIcon size={32} color={themeColors.bgDark} />
         </View> */}
 
-        {/* Search Bar */}
         {/* <Search /> */}
-
-        {/* Categories */}
         {/* <Categories /> */}
 
         {/* Cards */}
