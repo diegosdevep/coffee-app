@@ -16,6 +16,9 @@ import CoffeeCard from '../../components/CoffeeCard.js/CoffeeCard';
 import { coffeeItems } from '../../constants/categories';
 import Carousel from 'react-native-snap-carousel';
 import { themeColors } from '../../theme/theme';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
   return (
@@ -64,7 +67,7 @@ const HomeScreen = () => {
             loop={true}
             inactiveSlideScale={0.77} //opacity of inactive slides
             inactiveSlideOpacity={0.75} // size of inavtive slides
-            sliderWidth={440} // actual slide with
+            sliderWidth={width} // actual slide with
             itemWidth={260} // card with
             slideStyle={{ display: 'flex', alignItems: 'center' }}
           />
