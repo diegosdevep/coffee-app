@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   boxNoProducts: {
-    height: '90%',
+    height: '85%',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 30,

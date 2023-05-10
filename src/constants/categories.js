@@ -1,11 +1,11 @@
 export const categories = [
   {
     id: 1,
-    title: 'Cappuccino',
+    title: 'Café Negro',
   },
   {
     id: 2,
-    title: 'Latte',
+    title: 'Cappuccino',
   },
   {
     id: 3,
@@ -13,11 +13,11 @@ export const categories = [
   },
   {
     id: 4,
-    title: 'Mocha',
+    title: 'Latte',
   },
   {
     id: 5,
-    title: 'Americano',
+    title: 'Mocha',
   },
 ];
 

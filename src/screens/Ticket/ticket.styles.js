@@ -30,4 +30,9 @@ export const styles = StyleSheet.create({
     color: themeColors.bgDark,
     marginBottom: 30,
   },
+  nothingHere: {
+    fontSize: 20,
+    color: themeColors.bgDark,
+    fontWeight: '600',
+  },
 });

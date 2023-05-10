@@ -1,14 +1,15 @@
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { styles } from './ticket.styles';
 import { clearOrder, setProducts } from '../../redux/orderSlice';
 import { useEffect } from 'react';
 
 const TicketScreen = ({ route }) => {
+  const dispatch = useDispatch();
   const { qrContent, total, order, expireDate, qrUniqueId } =
     route.params || {};
-  const dispatch = useDispatch();
+  const isEmpty = Object.keys(route.params || {}).length === 0;
 
   useEffect(() => {
     dispatch(setProducts(order?.products));
@@ -21,14 +22,28 @@ const TicketScreen = ({ route }) => {
   console.log('fecha de vencimiento', formattedDate);
   return (
     <View style={styles.container}>
-      <View style={styles.qrContainer}>
-        <QRCode value={qrContent} size={200} />
-      </View>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.totalText}>{formattedDate}</Text>
+      {isEmpty ? (
+        <View style={[styles.container, { marginBottom: 50 }]}>
+          <Image
+            style={{ width: 300, height: 300, borderRadius: 100 }}
+            source={require('../../../assets/3d.png')}
+          />
+          <Text style={styles.nothingHere}>
+            Aun no haz realizado ninguna compra
+          </Text>
+        </View>
+      ) : (
+        <>
+          <View style={styles.qrContainer}>
+            <QRCode value={qrContent} size={200} />
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.totalText}>{formattedDate}</Text>
 
-        <Text style={styles.totalAmount}>${total}</Text>
-      </View>
+            <Text style={styles.totalAmount}>${total}</Text>
+          </View>
+        </>
+      )}
     </View>
   );
 };

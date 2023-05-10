@@ -20,14 +20,49 @@ import { themeColors } from '../../theme/theme';
 const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <StatusBar barStyle='dark-content' />
+      <StatusBar barStyle='light-content' />
       <Image
         source={require('../../../assets/images/beansBackground1.png')}
         style={styles.imgBG}
       />
 
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.content}>
+        <View>
+          <Image
+            style={{
+              width: 250,
+              height: 250,
+              position: 'absolute',
+              top: -160,
+              left: -80,
+            }}
+            source={require('../../../assets/images/coffee4.png')}
+          />
+          <Text
+            style={{
+              fontSize: 50,
+              textAlign: 'center',
+              marginTop: 120,
+              fontWeight: '900',
+              color: themeColors.bgDark,
+              marginBottom: 30,
+            }}
+          >
+            Coffee Hub
+          </Text>
+          <Image
+            style={{
+              width: 250,
+              height: 250,
+              position: 'absolute',
+              top: -160,
+              right: -80,
+            }}
+            source={require('../../../assets/images/coffee2.png')}
+          />
+        </View>
+
+        {/* <View style={styles.content}>
           <Image
             style={styles.img}
             source={require('../../../assets/images/avatar.png')}
@@ -37,13 +72,13 @@ const HomeScreen = () => {
             <Text style={styles.text}>Santa Rosa, LP</Text>
           </View>
           <BellIcon size={32} color={themeColors.bgDark} />
-        </View>
+        </View> */}
 
         {/* Search Bar */}
-        <Search />
+        {/* <Search /> */}
 
         {/* Categories */}
-        <Categories />
+        {/* <Categories /> */}
 
         {/* Cards */}
         <View style={{ marginTop: 70 }}>

@@ -31,7 +31,7 @@ const CheckoutScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const EXPIRE_HOURS = 4;
+  const EXPIRE_HOURS = 24;
 
   const handleRemoveProduct = (productId) => {
     dispatch(removeProduct(productId));
@@ -62,7 +62,9 @@ const CheckoutScreen = () => {
     const uniqueId = uuidv4();
 
     // Crear el contenido del código QR
-    const qrContent = `Valido hasta el ${formattedDate}, ID único: ${uniqueId}`;
+    const qrContent = `Valido hasta el ${formattedDate}`;
+    // const qrContent = `Valido hasta el ${formattedDate}, ID único: ${uniqueId}`;
+    // const qrContent = `https://www.google.com`;
 
     try {
       // Confirmar la orden y guardarla en la base de datos
