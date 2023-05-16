@@ -4,7 +4,6 @@ import { themeColors } from '../../theme/theme';
 export const styles = StyleSheet.create({
   container: {
     padding: 20,
-    marginTop: 40,
   },
   content: {
     flexDirection: 'row',

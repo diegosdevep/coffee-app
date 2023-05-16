@@ -3,10 +3,7 @@ import { themeColors } from '../../theme/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    backgroundColor: '#fff',
     paddingHorizontal: 20,
-    paddingVertical: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -27,7 +24,6 @@ export const styles = StyleSheet.create({
   },
   detailsContainer: {
     alignItems: 'center',
-    marginTop: 20,
   },
   totalText: {
     fontSize: 24,

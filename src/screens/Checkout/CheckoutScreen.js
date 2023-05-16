@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { themeColors } from '../../theme/theme';
@@ -124,7 +125,7 @@ const CheckoutScreen = () => {
   );
 
   return (
-    <>
+    <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.content}>
           <TouchableOpacity
@@ -175,7 +176,7 @@ const CheckoutScreen = () => {
           </View>
         )}
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

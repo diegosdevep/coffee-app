@@ -41,7 +41,16 @@ const TicketScreen = ({ route }) => {
   return (
     <SafeAreaView>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={[styles.container, { backgroundColor: '#F2F2F2' }]}>
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor: '#F2F2F2',
+              height: height - 180,
+              justifyContent: 'center',
+            },
+          ]}
+        >
           {isEmpty ? (
             <View
               style={{
@@ -66,16 +75,13 @@ const TicketScreen = ({ route }) => {
                 justifyContent: 'space-around',
               }}
             >
-              <Text style={styles.totalAmount}>Compra Realizada</Text>
-              <Text style={styles.totalAmount}>${total}</Text>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.totalText}> *** Valido hasta ***</Text>
+                <Text style={styles.formattedDate}>{formattedDate}</Text>
+              </View>
 
               <View style={styles.qrContainer}>
                 <QRCode value={qrContent} size={200} />
-              </View>
-
-              <View style={styles.detailsContainer}>
-                <Text style={styles.totalText}>Valido hasta: </Text>
-                <Text style={styles.formattedDate}>{formattedDate}</Text>
               </View>
 
               {order?.products.map((item) => (
@@ -84,6 +90,7 @@ const TicketScreen = ({ route }) => {
                   <Text style={styles.items}>x{item.quantity}</Text>
                 </View>
               ))}
+              <Text style={styles.totalAmount}>${total}</Text>
             </View>
           )}
         </View>
