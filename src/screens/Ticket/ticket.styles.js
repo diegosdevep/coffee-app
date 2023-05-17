@@ -54,4 +54,8 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: themeColors.bgDark,
   },
+  order: {
+    fontSize: 20,
+    color: themeColors.bgDark,
+  },
 });

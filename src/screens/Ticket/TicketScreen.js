@@ -16,7 +16,7 @@ const { height } = Dimensions.get('window');
 
 const TicketScreen = ({ route }) => {
   const dispatch = useDispatch();
-  const { qrContent, total, order, expireDate, qrUniqueId } =
+  const { qrContent, total, order, expireDate, qrUniqueId, orderNumber } =
     route.params || {};
   const isEmpty = Object.keys(route.params || {}).length === 0;
 
@@ -90,7 +90,29 @@ const TicketScreen = ({ route }) => {
                   <Text style={styles.items}>x{item.quantity}</Text>
                 </View>
               ))}
-              <Text style={styles.totalAmount}>${total}</Text>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 20,
+                }}
+              >
+                <Text style={styles.totalAmount}>${total}</Text>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 5,
+                  }}
+                >
+                  <Text style={styles.order}>Serás llamado con el número:</Text>
+                  <Text
+                    style={[styles.order, { fontWeight: '600', fontSize: 28 }]}
+                  >
+                    {orderNumber}
+                  </Text>
+                </View>
+              </View>
             </View>
           )}
         </View>

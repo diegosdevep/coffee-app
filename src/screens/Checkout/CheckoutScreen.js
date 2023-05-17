@@ -27,6 +27,7 @@ const CheckoutScreen = () => {
   const order = useSelector((state) => state.order);
   const [orders, setOrders] = useState(order);
   const [qrUniqueId, setQrUniqueId] = useState('');
+  const [orderCounter, setOrderCounter] = useState(1);
 
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -80,6 +81,8 @@ const CheckoutScreen = () => {
       // Confirmar la orden y guardarla en la base de datos
       await handleConfirmOrder(qrContent, total, expireDate, uniqueId);
 
+      setOrderCounter((prevCounter) => prevCounter + 1);
+
       // Guardar el ID único del código QR para mostrarlo en la pantalla de ticket
       setQrUniqueId(uniqueId);
 
@@ -90,6 +93,7 @@ const CheckoutScreen = () => {
         order,
         expireDate: expireDate.toISOString(),
         qrUniqueId: uniqueId,
+        orderNumber: orderCounter,
       });
 
       setIsLoading(false);
