@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
     width: 250,
   },
   innerContainer: {
-    // backgroundColor: 'red',
     borderRadius: 30,
     flex: 1,
   },
@@ -24,9 +23,9 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
   img: {
-    height: 150,
-    width: 150,
-    top: -60,
+    height: 170,
+    width: 170,
+    top: -70,
   },
   title: {
     fontSize: 30,

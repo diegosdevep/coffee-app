@@ -1,4 +1,4 @@
-import { LogBox, View } from 'react-native';
+import { LogBox, Platform, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   HomeIcon as HomeOutline,
@@ -60,13 +60,15 @@ const HomeTabs = () => {
         tabBarShowLabel: false,
         tabBarIcon: ({ focused }) => menuIcons(route, focused),
         tabBarStyle: {
+          height: 70,
+          justifyContent: 'center',
           marginBottom: 20,
           borderRadius: 50,
           marginHorizontal: 20,
           backgroundColor: themeColors.bgDark,
         },
         tabBarItemStyle: {
-          marginTop: 30,
+          marginTop: Platform.OS === 'ios' ? 30 : 0,
         },
       })}
     >

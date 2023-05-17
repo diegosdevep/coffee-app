@@ -58,7 +58,12 @@ const HomeScreen = () => {
         {/* <Categories /> */}
 
         {/* Cards */}
-        <View style={{ marginTop: 70 }}>
+        <View
+          style={{
+            marginTop: 40,
+            height: 450,
+          }}
+        >
           <Carousel
             containerCustomStyle={{ overflow: 'visible' }}
             data={coffeeItems}
@@ -66,10 +71,14 @@ const HomeScreen = () => {
             firstItem={1}
             loop={true}
             inactiveSlideScale={0.77} //opacity of inactive slides
-            inactiveSlideOpacity={0.75} // size of inavtive slides
+            inactiveSlideOpacity={1} // size of inavtive slides
             sliderWidth={width} // actual slide with
             itemWidth={260} // card with
-            slideStyle={{ display: 'flex', alignItems: 'center' }}
+            slideStyle={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           />
         </View>
       </SafeAreaView>
