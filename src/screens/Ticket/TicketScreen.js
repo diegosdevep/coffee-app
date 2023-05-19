@@ -18,6 +18,8 @@ const TicketScreen = ({ route }) => {
   const dispatch = useDispatch();
   const { qrContent, total, order, expireDate, qrUniqueId, orderNumber } =
     route.params || {};
+
+  console.log(route);
   const isEmpty = Object.keys(route.params || {}).length === 0;
 
   useEffect(() => {
